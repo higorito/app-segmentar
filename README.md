@@ -1,16 +1,18 @@
-# upload
+# Segmentação de Imagens
 
-A new Flutter project.
+Este aplicativo foi desenvolvido para realizar alguns processos em imagens digitais, para a disciplina de Processamento Digital de Imagens. Gostei demais de fazer isso, pois primeiramente fiz os códigos em python e pensei, porquê não fazer uma API e chamar ela via app, visto que, eu gosto de flutter.
 
-## Getting Started
+## API
 
-This project is a starting point for a Flutter application.
+Fiz uma API utilizando o fastapi e hospedei no render acesse [aqui](https://fastapi-higorito.onrender.com), para acessar a documentação basta colocar /docs no final da url. No meu github também há o código fonte dela [link](https://github.com/higorito/fastapi-pdi-).
 
-A few resources to get you started if this is your first Flutter project:
+## Baixe o App
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Busque o apk na pasta apks e teste por si mesmo.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Prints
+
+|        |        |
+|--------|--------|
+| ![alt text](imgs/prewitt.png) | ![alt text](imgs/canny.png) |
+| ![alt text](imgs/otsu.png) | ![alt text](imgs/roberts_x.png) |
