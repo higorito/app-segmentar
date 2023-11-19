@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class UploadPage extends StatefulWidget {
   UploadPage({Key? key}) : super(key: key);
@@ -38,6 +39,21 @@ class _UploadPageState extends State<UploadPage> {
     'canny',
     'watershed',
   ];
+
+  void checkAndRequestPermissions() async {
+    if (await Permission.storage.request().isGranted) {
+      // A permissão de armazenamento está concedida, você pode prosseguir com a lógica.
+    } else {
+      // A permissão não está concedida. Você pode solicitar ao usuário.
+      await Permission.storage.request();
+      // Após a solicitação, verifique novamente o status da permissão.
+      if (await Permission.storage.request().isGranted) {
+        // Permissão concedida, prossiga com a lógica.
+      } else {
+        // O usuário recusou a permissão, trate de acordo.
+      }
+    }
+  }
 
   // Future<void> pickImageCamera() async {
   //   try {
@@ -84,13 +100,13 @@ class _UploadPageState extends State<UploadPage> {
   Future<void> uploadImagesFromPicker() async {
     try {
       Dio dio = Dio();
-
+      checkAndRequestPermissions();
       String url =
-          'fastapi-higorito.onrender.com/aplicar-filtro/${dropValue.value}/';
+          'https://fastapi-higorito.onrender.com/aplicar-filtro/${dropValue.value}/';
 
       List<XFile>? pickedImages = await ImagePicker().pickMultiImage();
 
-      if (pickedImages == null || pickedImages.isEmpty) {
+      if (pickedImages.isEmpty) {
         print('Nenhuma imagem selecionada.');
         return;
       }
@@ -114,12 +130,15 @@ class _UploadPageState extends State<UploadPage> {
         );
       }
 
+      dio.interceptors
+          .add(LogInterceptor(requestBody: true, responseBody: true));
+
       Response response = await dio.post(
         url,
         data: formData,
         options: Options(
           headers: {
-            'accept': 'application/json',
+            'Accept': 'application/json',
             'Content-Type': 'multipart/form-data',
           },
         ),

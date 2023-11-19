@@ -42,6 +42,8 @@ dependencies:
 
   image: ^3.0.1
   lottie: ^2.7.0
+  permission_handler: ^10.0.0
+
 
 dev_dependencies:
   flutter_test:
